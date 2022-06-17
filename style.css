@@ -21,8 +21,16 @@ body {
     background: #FFFFFF;
 }
 
+.card-question {
+    background: #FFFFFF;
+}
+
 @media screen and (min-width: 1000px) {
     .card {
+        width: 32vw;
+        height: 40vw;
+    }
+    .card-question {
         width: 32vw;
         height: 40vw;
     }
@@ -32,6 +40,10 @@ body {
     .card {
         width: 70vw;
         height: 80vw;
+    }
+    .card-question {
+        width: 32vw;
+        height: 30vw;
     }
 }
 
@@ -107,7 +119,10 @@ body {
 .radio-group {
     margin-top: 8px;
     margin-left: 25px;
+    margin-right: 25px;
     margin-bottom: 30px;
+    padding: 10px 0;
+    border: 1px solid rgb(233, 231, 231);
 }
 
 .input-group>label {
@@ -116,6 +131,10 @@ body {
     font-size: 12px;
     margin-bottom: 5px;
     font-weight: 600;
+}
+
+.radio-group>label>input {
+    margin-right: 8px;
 }
 
 .input-radio>label {
@@ -196,8 +215,29 @@ body {
     transition: all 1s ease;
 }
 
+.quitter {
+    background: #EC880C;
+}
+
+.quitter:hover {
+    background: #be6a02;
+}
+
+.suivant:hover {
+    background: rgba(0, 31, 13, 0.42);
+}
+
+.suivant {
+    background: rgba(2, 138, 61, 0.42);
+}
+
 #seconde {
     position: absolute;
     right: 27px;
     top: 0px;
+}
+
+.input-btn-group-question {
+    display: flex;
+    gap: 30px;
 }
