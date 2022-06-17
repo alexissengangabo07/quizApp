@@ -41,7 +41,7 @@
             </div>
         </div>
         <!-- card2 -->
-        <div class="card" id="question1">
+        <div class="card-question" id="question1">
             <div class="card-title question-container">
                 <h3 class="question">Quel est le type d'un fichier javascript ?</h3>
             </div>
@@ -55,31 +55,33 @@
             <div class="card-body">
                 <form action="" autocomplete="off">
                     <div class="radio-group">
-                        <label for="">
-                            <input type="radio" name="reponse" id="nom" placeholder="Alex">
+                        <label>
+                            <input type="radio" name="reponse" value="ts" >
                             .ts</label>
                     </div>
                     <div class="radio-group">
-                        <input type="radio" name="reponse" id="nom" placeholder="Alex">
-                        <label for="">.ts</label>
-                    </div>
-                    <div class="radio-group">
-                        <label for="">
-                            <input type="radio" name="reponse" id="nom" placeholder="Alex">
+                        <label>
+                            <input type="radio" name="reponse" id="nom">
                             .jsx</label>
                     </div>
                     <div class="radio-group">
-                        <label for="">
-                            <input type="radio" name="reponse" id="nom" placeholder="Alex">
-                            .js</label>
+                        <label>
+                            <input type="radio" name="reponse" id="nom">
+                            .js
+                        </label>
                     </div>
                     <div class="radio-group">
-                        <label for="">
-                            <input type="radio" name="reponse" id="nom" placeholder="Alex">
-                            .j</label>
+                        <label>
+                            <input type="radio" name="reponse" id="nom"> .j
+                        </label>
                     </div>
-                    <div class="input-group input-btn-group">
-                        <input type="submit" class="btn-submit" value="Commencer">
+                    <div class="input-group input-btn-group-question">
+                        <div>
+                            <input type="submit" class="btn-submit quitter" value="Commencer">
+                        </div>
+                        <div>
+                            <input type="submit" class="btn-submit suivant" value="Commencer">
+                        </div>
                     </div>
                 </form>
             </div>
