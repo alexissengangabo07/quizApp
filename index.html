@@ -1,16 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/favicon.ico.webp" type="image/x-icon">
     <title>QuizApp</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div>
 
+<body>
+    <div class="container">
+        <!-- card1 -->
+        <div class="card" id="starter">
+            <div class="card-title starter-title">
+                <span>JavaScript Quiz</span>
+            </div>
+            <div class="card-description">
+                <p>
+                    Évaluez vos connaissances en JavaScript en répondant aux questions que nous avons spécialement sélectionnées pour vous. C'est fun et c'est gratuit.
+                </p>
+            </div>
+            <div class="card-body">
+                <form action="" autocomplete="off">
+                    <div class="input-group">
+                        <label for="">Nom</label>
+                        <input type="text" name="nom" class="input" id="nom" placeholder="Alex">
+                        <span>okkokoko ojojono  non</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="input" id="email" placeholder="alexxngabo@gmail.com">
+                        <span>okkokoko ojojono  non</span>
+                    </div>
+                    <div class="input-group input-btn-group">
+                        <input type="submit" class="btn-submit" id="submit-starter" value="Commencer">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- card2 -->
+        <div class="card" id="question1">
+            <div class="card-title question-container">
+                <h3 class="question">Quel est le type d'un fichier javascript ?</h3>
+            </div>
+            <div class="card-title question-counter">
+                <h3 class="question">Question 1/15</h3>
+                <span id="seconde"></span>
+                <div class="progress">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="" autocomplete="off">
+                    <div class="radio-group">
+                        <label for="">
+                            <input type="radio" name="reponse" id="nom" placeholder="Alex">
+                            .ts</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" name="reponse" id="nom" placeholder="Alex">
+                        <label for="">.ts</label>
+                    </div>
+                    <div class="radio-group">
+                        <label for="">
+                            <input type="radio" name="reponse" id="nom" placeholder="Alex">
+                            .jsx</label>
+                    </div>
+                    <div class="radio-group">
+                        <label for="">
+                            <input type="radio" name="reponse" id="nom" placeholder="Alex">
+                            .js</label>
+                    </div>
+                    <div class="radio-group">
+                        <label for="">
+                            <input type="radio" name="reponse" id="nom" placeholder="Alex">
+                            .j</label>
+                    </div>
+                    <div class="input-group input-btn-group">
+                        <input type="submit" class="btn-submit" value="Commencer">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,10 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
 * {
     box-sizing: border-box;
+    font-family: 'inter';
 }
 
 body {
-    margin: 0;
-    padding: 0;
+    position: relative;
     overflow-x: hidden;
-    font-family: 'Courier New', Courier, monospace;
+    background: linear-gradient(90deg, #85F6B8 0%, rgba(142, 217, 235, 0.85) 99.84%);
+    background-blend-mode: darken;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding-top: 60px;
+}
+
+.card {
+    background: #FFFFFF;
+}
+
+@media screen and (min-width: 1000px) {
+    .card {
+        width: 32vw;
+        height: 40vw;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .card {
+        width: 70vw;
+        height: 80vw;
+    }
+}
+
+.card-title {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+.question-container {
+    margin-top: 50px;
+    margin-bottom: 2px;
+}
+
+.question-counter {
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding: 0 26px;
+    position: relative;
+}
+
+.starter-title>span {
+    text-align: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 27px;
+    color: #7c7b7b;
+    font-weight: bold;
+}
+
+.question-container>h3 {
+    text-align: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #7c7b7b;
+    font-weight: bold;
+}
+
+.question-counter>h3 {
+    text-align: left;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #7c7b7b;
+    font-weight: bold;
+}
+
+.card-description {
+    text-align: center;
+    padding: 0 38px;
+}
+
+.card-description>p {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 20px;
+    /* or 158% */
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.input-group {
+    margin-top: 8px;
+    margin-left: 25px;
+    margin-bottom: 30px;
+}
+
+.radio-group {
+    margin-top: 8px;
+    margin-left: 25px;
+    margin-bottom: 30px;
+}
+
+.input-group>label {
+    display: block;
+    font-style: normal;
+    font-size: 12px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.input-radio>label {
+    display: block;
+    font-style: normal;
+    font-size: 12px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.input-group>span {
+    display: none;
+    font-style: normal;
+    font-size: 12px;
+    color: #FF3838;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.input {
+    height: 38px;
+    width: 93%;
+    border: 1px solid lightgray;
+    outline: none;
+    padding-left: 5px;
+    transition: all 0.5s ease;
+}
+
+.input:focus {
+    border: 1px solid rgb(163, 162, 162);
+}
+
+.input-btn-group {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.btn-submit {
+    color: white;
+    font-weight: bold;
+    background-color: #028A3D;
+    padding: 10px 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 1s ease;
+}
+
+.btn-submit:hover {
+    background-color: #026b30;
+}
+
+#starter {
+    display: none;
+}
+
+.question {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 32px;
+    /* or 225% */
+    color: #555555;
+}
+
+.progress {
+    width: 100%;
+    height: 8px;
+    border-radius: 3px;
+    background-color: #DDDDDD;
+    margin-top: -15px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    border-radius: 3px;
+    background-color: #028A3D;
+    transition: all 1s ease;
+}
+
+#seconde {
+    position: absolute;
+    right: 27px;
+    top: 0px;
 }
