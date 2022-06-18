@@ -3,13 +3,45 @@ let sec = 60;
 let btnSuivant = document.querySelector('.suivant');
 let form = document.querySelector('.form-question');
 let radioInputs = document.querySelectorAll(`input[type="radio"]`);
+let btnCommencer = document.querySelector('#submit-starter');
+let identifForm = document.querySelector('#form-identifiant');
+let inputs = document.querySelectorAll('.input');
+
+identifForm.addEventListener('submit', e => {
+    e.preventDefault();
+    for(let i = 0; i < inputs.length; i++) {
+        if(inputs[i].value == '') {
+            inputs[i].style.borderColor = 'red';
+            if(inputs[0].value == '') {
+                document.querySelector('#error_name').textContent = 'N\'oubliez pas de renseigner votre nom avant de commencer le Quiz.';
+            }
+            if(inputs[1].value == '') {
+                document.querySelector('#error_email').textContent = 'N\'oubliez pas de renseigner votre email avant de commencer le Quiz.';
+            }
+        } 
+    }
+});
+
+for(let i = 0; i < inputs.length; i++) {
+    inputs[i].addEventListener('input', () => {
+        if(inputs[i] != '') {
+            inputs[i].style.borderColor = 'rgba(233, 231, 231)';
+            if(inputs[0] != '') {
+                document.querySelector('#error_name').textContent = '';
+            }
+            if(inputs[1] == '') {
+                document.querySelector('#error_name').textContent = '';
+            }
+        }
+    });
+}
+
 
 form.addEventListener('submit', e => {
     e.preventDefault();
     for(let i = 0; i < radioInputs.length; i++) {
         radioInputs[i];
         if(radioInputs[i].checked) {
-            alert('SUCCESS');
             radioInputs.forEach(r => r.parentElement.parentElement.style.borderColor = 'rgba(233, 231, 231)');
             break;
         }
