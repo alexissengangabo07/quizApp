@@ -1,5 +1,24 @@
-let i = 100;
+let width = 100;
 let sec = 60;
+let btnSuivant = document.querySelector('.suivant');
+let form = document.querySelector('.form-question');
+let radioInputs = document.querySelectorAll(`input[type="radio"]`);
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    for(let i = 0; i < radioInputs.length; i++) {
+        radioInputs[i];
+        if(radioInputs[i].checked) {
+            alert('SUCCESS');
+            radioInputs.forEach(r => r.parentElement.parentElement.style.borderColor = 'rgba(233, 231, 231)');
+            break;
+        }
+        else {
+            radioInputs.forEach(r => r.parentElement.parentElement.style.borderColor = 'red');
+        }
+    }
+});
+
 let secondeDisplay = setInterval(() => {
     if (sec > 0) {
         seconde.innerHTML = sec;
@@ -10,29 +29,25 @@ let secondeDisplay = setInterval(() => {
     sec--;
 }, 1000);
 let secondeCounter = setInterval(() => {
-    if (i > 0) {
-        document.querySelector('.progress-bar').style.width = i + '%';
-        if (i < 30) {
+    if (width > 0) {
+        document.querySelector('.progress-bar').style.width = width + '%';
+        if (width < 30) {
             document.querySelector('.progress-bar').style.background = 'red';
         }
     } else {
         document.querySelector('.progress-bar').style.width = 0 + '%';
         clearInterval(secondeCounter)
     }
-    i--;
+    width--;
 }, 600);
-
-let radioInputs = document.querySelectorAll(`input[type="radio"]`);
 
 radioInputs.forEach((radio) => {
     radio.addEventListener('change', function() {
-        console.log(radioInputs);
         if (radio.checked) {
-            radioInputs.forEach(r => r.parentElement.parentElement.style.borderColor = 'rgb(233, 231, 231)')
-            this.parentElement.parentElement.style.borderColor = 'green'
-        } else {
-            this.parentElement.parentElement.style.borderColor = 'rgb(233, 231, 231)';
-        }
+            radioInputs.forEach(r => r.parentElement.parentElement.style.borderColor = 'rgb(233, 231, 231)');
+            this.parentElement.parentElement.style.borderColor = 'green';
+            btnSuivant.className = 'suivant suivant-active';
+        } 
     });
 })
 
