@@ -6,88 +6,113 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./images/favicon.ico.webp" type="image/x-icon">
+    <link rel="stylesheet" href="./MaterialDesign/css/materialdesignicons.min.css">
     <title>QuizApp</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container">
-        <!-- card1 -->
-        <div class="card" id="starter">
-            <div class="card-title starter-title">
+    <section class="container">
+        <!-- card1 indentification -->
+        <article class="card" id="starter" style="display: none">
+            <div class=" card-title starter-title ">
                 <span>JavaScript Quiz</span>
             </div>
-            <div class="card-description">
+            <div class="card-description ">
                 <p>
                     Évaluez vos connaissances en JavaScript en répondant aux questions que nous avons spécialement sélectionnées pour vous. C'est fun et c'est gratuit.
                 </p>
             </div>
-            <div class="card-body">
-                <form action="" autocomplete="off">
-                    <div class="input-group">
-                        <label for="">Nom</label>
-                        <input type="text" name="nom" class="input" id="nom" placeholder="Alex">
+            <div class="card-body ">
+                <form>
+                    <div class="input-group ">
+                        <label for=" ">Nom</label>
+                        <input type="text " name="nom " class="input " id="nom " placeholder="Alex ">
                         <span>okkokoko ojojono  non</span>
                     </div>
-                    <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" class="input" id="email" placeholder="alexxngabo@gmail.com">
+                    <div class="input-group ">
+                        <label for="email ">Email</label>
+                        <input type="email " name="email " class="input " id="email " placeholder="alexxngabo@gmail.com ">
                         <span>okkokoko ojojono  non</span>
                     </div>
-                    <div class="input-group input-btn-group">
-                        <input type="submit" class="btn-submit" id="submit-starter" value="Commencer">
+                    <div class="input-group input-btn-group ">
+                        <input type="submit " class="btn-submit " id="submit-starter " value="Commencer ">
                     </div>
                 </form>
             </div>
-        </div>
-        <!-- card2 -->
-        <div class="card-question" id="question1">
-            <div class="card-title question-container">
-                <h3 class="question">Quel est le type d'un fichier javascript ?</h3>
+        </article>
+        <!-- card2 questions -->
+        <article class="card-question " style="display: none;">
+            <div class="question ">
+                <p>Évaluez vos connaissances en JavaScript en répondant aux questions que nous avons spécialement sélectionnées pour vous. C'est fun et c'est gratuit.</p>
             </div>
-            <div class="card-title question-counter">
-                <h3 class="question">Question 1/15</h3>
+            <div class="card-title question-counter ">
+                <h3 class="question ">Question 1/15</h3>
                 <span id="seconde"></span>
-                <div class="progress">
-                    <div class="progress-bar"></div>
+                <div class="progress ">
+                    <div class="progress-bar "></div>
                 </div>
             </div>
-            <div class="card-body">
-                <form action="" autocomplete="off">
+            <div class="card-body ">
+                <form>
                     <div class="radio-group">
                         <label>
-                            <input type="radio" name="reponse" value="ts" >
-                            .ts</label>
+                        <input type="radio" name="reponse " value="ts ">
+                        .ts</label>
                     </div>
-                    <div class="radio-group">
+                    <div class="radio-group ">
                         <label>
-                            <input type="radio" name="reponse" id="nom">
-                            .jsx</label>
+                        <input type="radio" name="reponse " value="jsx ">
+                        .jsx</label>
                     </div>
-                    <div class="radio-group">
+                    <div class="radio-group ">
                         <label>
-                            <input type="radio" name="reponse" id="nom">
-                            .js
-                        </label>
+                        <input type="radio" name="reponse " value="js">
+                        .js
+                    </label>
                     </div>
-                    <div class="radio-group">
+                    <div class="radio-group ">
                         <label>
-                            <input type="radio" name="reponse" id="nom"> .j
-                        </label>
+                        <input type="radio" name="reponse " value="j"> .j
+                    </label>
                     </div>
-                    <div class="input-group input-btn-group-question">
+                    <div class="input-btn-group-question ">
                         <div>
-                            <input type="submit" class="btn-submit quitter" value="Commencer">
+                            <input type="submit " class="quitter " value="Quitter">
                         </div>
                         <div>
-                            <input type="submit" class="btn-submit suivant" value="Commencer">
+                            <input type="submit " class="suivant " value="Suivant">
                         </div>
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
-    <script src="script.js"></script>
+        </article>
+        <!-- card3 resultat -->
+        <article class="card-question ">
+            <div class="question ">
+                <p style="font-weight: bold;">Joseph</p>
+            </div>
+            <div class="card-body ">
+                <form>
+                    <div class="align-center">
+                        <p class="email-display">alexsengangabo@gmail.com</p>
+                        <div class="icon">
+                            <i class="mdi mdi-check-circle-outline icon-green"></i>
+                        </div>
+                        <div>
+                            <p class="email-display " style="font-weight: bold; ">12/15</p>
+                        </div>
+                    </div>
+                    <div class="btn-center ">
+                        <div>
+                            <input type="submit" class="btn-submit acceuil-btn " value="Acceuil ">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </article>
+    </section>
+    <script src="script.js "></script>
 </body>
 
 </html>
