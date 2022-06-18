@@ -10,12 +10,12 @@ let inputs = document.querySelectorAll('.input');
 identifForm.addEventListener('submit', e => {
     e.preventDefault();
     for(let i = 0; i < inputs.length; i++) {
-        if(inputs[i].value == '') {
+        if(inputs[i].value.trim() == '') {
             inputs[i].style.borderColor = 'red';
-            if(inputs[0].value == '') {
+            if(inputs[0].value.trim() == '') {
                 document.querySelector('#error_name').textContent = 'N\'oubliez pas de renseigner votre nom avant de commencer le Quiz.';
             }
-            if(inputs[1].value == '') {
+            if(inputs[1].value.trim() == '') {
                 document.querySelector('#error_email').textContent = 'N\'oubliez pas de renseigner votre email avant de commencer le Quiz.';
             }
         } 
@@ -24,19 +24,20 @@ identifForm.addEventListener('submit', e => {
 
 for(let i = 0; i < inputs.length; i++) {
     inputs[i].addEventListener('input', () => {
-        if(inputs[i] != '') {
+        if(inputs[i].value.trim() != '') {
             inputs[i].style.borderColor = 'rgba(233, 231, 231)';
-            if(inputs[0] != '') {
+            if(inputs[0].value.trim() != '') {
                 document.querySelector('#error_name').textContent = '';
             }
-            if(inputs[1] != '') {
+            if(inputs[1].value.trim() != '') {
                 document.querySelector('#error_email').textContent = '';
             }
+        }
+        if(inputs[0].value.trim() != '' && inputs[1].value.trim() != '') {
             btnSuivant.className += 'suivant suivant-active';   
         }
     });
 }
-
 
 form.addEventListener('submit', e => {
     e.preventDefault();
