@@ -29,9 +29,10 @@ for(let i = 0; i < inputs.length; i++) {
             if(inputs[0] != '') {
                 document.querySelector('#error_name').textContent = '';
             }
-            if(inputs[1] == '') {
-                document.querySelector('#error_name').textContent = '';
+            if(inputs[1] != '') {
+                document.querySelector('#error_email').textContent = '';
             }
+            btnSuivant.className += 'suivant suivant-active';   
         }
     });
 }
@@ -78,7 +79,7 @@ radioInputs.forEach((radio) => {
         if (radio.checked) {
             radioInputs.forEach(r => r.parentElement.parentElement.style.borderColor = 'rgb(233, 231, 231)');
             this.parentElement.parentElement.style.borderColor = 'green';
-            btnSuivant.className = 'suivant suivant-active';
+            btnCommencer.className = 'suivant suivant-active';
         } 
     });
 })
