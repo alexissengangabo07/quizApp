@@ -202,9 +202,15 @@ body {
     margin-left: 5px;
     margin-right: 5px;
     margin-bottom: 30px;
-    padding: 10px 0;
     border: 1px solid rgb(233, 231, 231);
     transition: all 1s ease;
+}
+
+.radio-group>label {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
 }
 
 .input-group>label {
@@ -256,16 +262,29 @@ input:checked {
 }
 
 .suivant {
-    background: rgba(2, 138, 61, 0.42);
     color: white;
     font-weight: bold;
     padding: 10px;
     outline: none;
     border: none;
-    cursor: not-allowed;
     transition: all 1s ease;
     width: 170px;
     text-align: center;
+}
+
+.suivant-disable {
+    background: rgba(2, 138, 61, 0.42);
+    transition: all 1s ease;
+}
+
+.suivant-active {
+    background: #028A3D;
+    cursor: pointer;
+    transition: all 1s ease;
+}
+
+.suivant-active:hover {
+    background: #026b30;
 }
 
 .acceuil-btn {
