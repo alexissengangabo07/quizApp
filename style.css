@@ -248,10 +248,6 @@ input:checked {
     background: #be6a02;
 }
 
-.suivant:hover {
-    background: rgba(0, 31, 13, 0.42);
-}
-
 .btn-center {
     display: flex;
     justify-content: center;
@@ -266,7 +262,7 @@ input:checked {
     padding: 10px;
     outline: none;
     border: none;
-    cursor: pointer;
+    cursor: not-allowed;
     transition: all 1s ease;
     width: 170px;
     text-align: center;
