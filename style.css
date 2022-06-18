@@ -25,6 +25,7 @@ body {
     background: #FFFFFF;
     padding: 20px 15px;
     max-width: 400px;
+    min-width: 270px;
 }
 
 @media screen and (min-width: 1000px) {
@@ -124,35 +125,6 @@ body {
     margin-bottom: 30px;
 }
 
-.radio-group {
-    margin-top: 8px;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 30px;
-    padding: 10px 0;
-    border: 1px solid rgb(233, 231, 231);
-}
-
-.input-group>label {
-    display: block;
-    font-style: normal;
-    font-size: 12px;
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
-.radio-group>label>input {
-    margin-right: 8px;
-}
-
-.input-radio>label {
-    display: block;
-    font-style: normal;
-    font-size: 12px;
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
 .input-group>span {
     display: none;
     font-style: normal;
@@ -186,6 +158,7 @@ body {
     background-color: #028A3D;
     padding: 10px 30px;
     border: none;
+    outline: none;
     cursor: pointer;
     transition: all 1s ease;
 }
@@ -224,8 +197,51 @@ body {
     transition: all 1s ease;
 }
 
+.radio-group {
+    margin-top: 8px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 30px;
+    padding: 10px 0;
+    border: 1px solid rgb(233, 231, 231);
+    transition: all 1s ease;
+}
+
+.input-group>label {
+    display: block;
+    font-style: normal;
+    font-size: 12px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.radio-group>label>input {
+    margin-right: 8px;
+}
+
+.input-radio>label {
+    display: block;
+    font-style: normal;
+    font-size: 12px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+input:checked {
+    accent-color: green;
+}
+
 .quitter {
     background: #EC880C;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 1s ease;
+    width: 170px;
+    text-align: center;
 }
 
 .quitter:hover {
@@ -236,8 +252,41 @@ body {
     background: rgba(0, 31, 13, 0.42);
 }
 
+.btn-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    padding-bottom: 10px;
+}
+
 .suivant {
     background: rgba(2, 138, 61, 0.42);
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 1s ease;
+    width: 170px;
+    text-align: center;
+}
+
+.acceuil-btn {
+    background: #0880D6;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 1s ease;
+    width: 170px;
+    text-align: center;
+}
+
+.acceuil-btn:hover {
+    background: #005c9e;
 }
 
 #seconde {
@@ -248,8 +297,23 @@ body {
 
 .input-btn-group-question {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     margin-top: 40px;
     padding-bottom: 10px;
     margin-left: 5px;
+}
+
+.email-display {
+    font-size: 13px;
+    text-align: center;
+}
+
+.icon {
+    text-align: center;
+}
+
+.icon-green {
+    color: #028A3D;
+    font-size: 100px;
+    transition: all 2s ease;
 }
