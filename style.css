@@ -66,7 +66,7 @@ body {
     font-style: normal;
     font-weight: 400;
     font-size: 27px;
-    color: #7c7b7b;
+    color: #6a6868;
     font-weight: bold;
 }
 
@@ -76,7 +76,7 @@ body {
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
-    color: #7c7b7b;
+    color: #6a6868;
     font-weight: bold;
 }
 
@@ -86,7 +86,7 @@ body {
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
-    color: #7c7b7b;
+    color: #6a6868;
     font-weight: bold;
 }
 
@@ -112,7 +112,7 @@ body {
 
 .question>p {
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 17px;
     line-height: 20px;
     /* or 158% */
@@ -173,11 +173,11 @@ body {
 
 .question {
     font-style: normal;
-    font-weight: 400;
+    font-weight: bold;
     font-size: 14px;
     line-height: 32px;
     /* or 225% */
-    color: #555555;
+    color: #121111;
 }
 
 .progress {
