@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="./images/favicon.ico.webp" type="image/x-icon">
+    <!-- <link rel="shortcut icon" href="./images/ubuntu.png" type="image/x-icon"> -->
     <link rel="stylesheet" href="./MaterialDesign/css/materialdesignicons.min.css">
     <title>QuizApp</title>
     <link rel="stylesheet" href="style.css">
@@ -27,12 +27,12 @@
                 <form id="form-identifiant" autocomplete="off">
                     <div class="input-group ">
                         <label for=" ">Nom</label>
-                        <input type="text " name="nom " class="input" id="nom " placeholder="Entrer votre nom">
+                        <input type="text " name="nom " class="input" id="nom" placeholder="Entrer votre nom">
                         <span id="error_name"></span>
                     </div>
                     <div class="input-group ">
                         <label for="email ">Email</label>
-                        <input type="email " name="email " class="input" id="email " placeholder="Entrer votre email">
+                        <input type="email " name="email " class="input" id="email" placeholder="Entrer votre email">
                         <span id="error_email"></span>
                     </div>
                     <div class="input-btn-group ">
@@ -42,43 +42,46 @@
             </div>
         </article>
         <!-- card2 questions -->
-        <article class="page card-question ">
-            <div class="question ">
-                <p>Quel est le type d'un fichier javascript ?</p>
+        <article class="page card-question">
+            <div class="question">
+                <p id="question-displayer"></p>
             </div>
             <div class="card-title question-counter ">
-                <h3 class="question ">Question 1/15</h3>
+                <h3 class="question">Question <span id="questionCount"></span></h3>
                 <span id="seconde"></span>
                 <div class="progress ">
                     <div class="progress-bar "></div>
                 </div>
             </div>
             <div class="card-body ">
-                <form class="form-question">
+                <form class="form-question" id="form-question">
                     <div class="radio-group">
                         <label>
-                        <input type="radio" name="reponse " value="ts ">
-                        .ts</label>
+                            <input type="radio" name="reponse" class="assertion-value" value="ts">
+                            <span class="assertion-displayer"></span>
+                        </label>
                     </div>
                     <div class="radio-group ">
                         <label>
-                        <input type="radio" name="reponse " value="jsx ">
-                        .jsx</label>
+                            <input type="radio" name="reponse" class="assertion-value" value="jsx">
+                            <span class="assertion-displayer"></span>
+                        </label>
                     </div>
                     <div class="radio-group ">
                         <label>
-                        <input type="radio" name="reponse " value="js">
-                        .js
-                    </label>
+                            <input type="radio" name="reponse" class="assertion-value" value="js">
+                            <span class="assertion-displayer"></span>
+                        </label>
                     </div>
                     <div class="radio-group ">
                         <label>
-                        <input type="radio" name="reponse " value="j"> .j
-                    </label>
+                            <input type="radio" name="reponse" class="assertion-value" value="j"> 
+                            <span class="assertion-displayer"></span>
+                        </label>
                     </div>
                     <div class="input-btn-group-question ">
                         <div>
-                            <input type="submit" class="quitter " value="Quitter">
+                            <input type="submit" class="quitter" value="Quitter">
                         </div>
                         <div>
                             <input type="submit" class="suivant suivant-disable" value="Suivant">
@@ -114,7 +117,6 @@
     </section>
     <script src="./question.js"></script>
     <script src="script.js "></script>
-    <script src="./refact.js"></script>
 </body>
 
 </html>

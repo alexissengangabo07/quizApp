@@ -30,21 +30,29 @@ body {
 
 @media screen and (min-width: 1000px) {
     .card {
-        width: 421px;
-        height: 526px;
+        /* width: 421px;
+        height: 526px; */
+        padding: 20px 15px;
+        padding-bottom: 60px;
+        max-width: 450px;
+        min-width: 430px;
     }
 }
 
 @media screen and (max-width: 1000px) {
     .card {
-        width: 70vw;
-        height: 80vw;
+        /* width: 70vw;
+        height: 80vw; */
+        padding: 20px 15px;
+        padding-bottom: 40px;
+        max-width: 400px;
+        min-width: 270px;
     }
 }
 
 .card-title {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 25px;
     margin-bottom: 25px;
 }
 
@@ -140,6 +148,8 @@ body {
     outline: none;
     padding-left: 5px;
     transition: all 0.5s ease;
+    color: black;
+    font-weight: bold;
 }
 
 .input:focus {
