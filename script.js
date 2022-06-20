@@ -9,7 +9,8 @@ function progression(width = 100, sec = 60) {
     let secondeDisplay = setInterval(() => {
         if (sec > 0) {
             seconde.innerHTML = sec;
-        } else {
+        } 
+        else {
             seconde.innerHTML = 0;
             loaderPage(pageActive.idPage + 1);
             clearInterval(secondeDisplay);
@@ -50,10 +51,18 @@ form.addEventListener('submit', e => {
             if(radioInputs[i].value == question[pageActive.idPage].reponseIndex) {
                 // alert('reponse correcte');
                 utilisateur.points++;
-                loaderPage(active, index);
+                form.reset();
+                loaderPage(1, pageActive.indexQ);
             }
             else {
-                loaderPage(active, index);
+                pageActive.indexQ++;
+                form.reset();
+                if(pageActive.indexQ < 15) {
+                    loaderPage(1, pageActive.indexQ + 1);
+                }
+                else {
+                    loaderPage(2);
+                }
             }
             break;
         }
@@ -81,7 +90,8 @@ let utilisateur = {
 };
 
 let pageActive = {
-    idPage: 0
+    idPage: 0,
+    indexQ: -1
 };
 
 let temps = 60;
@@ -138,9 +148,9 @@ function loaderPage(active = 0, index = 0) {
     let assertionDisplayer = document.querySelectorAll('.assertion-displayer');
     let assertions = document.querySelectorAll('.assertion-value');
     let questionDisplayer = document.querySelector('#question-displayer');
-
+    
     pages.forEach(page => page.style.display = "none");
-    pages[active].style.display = "block";
+   pages[active].style.display = "block";
     pageActive.idPage = active;
     questionDisplayer.textContent = question[index].titre;
  
