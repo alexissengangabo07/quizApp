@@ -203,7 +203,7 @@ body {
     height: 8px;
     border-radius: 3px;
     background-color: #028A3D;
-    transition: all 1s ease;
+    transition: all 0.7s ease;
 }
 
 .radio-group {

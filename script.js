@@ -4,32 +4,27 @@ let radioInputs = document.querySelectorAll(`input[type="radio"]`);
 let btnCommencer = document.querySelector('#submit-starter');
 let identifForm = document.querySelector('#form-identifiant');
 let inputs = document.querySelectorAll('.input');
+let width = 100;
+let sec = 60
 
-function progression(width = 100, sec = 60) {
-    let secondeDisplay = setInterval(() => {
+setInterval(() => {
         if (sec > 0) {
             seconde.innerHTML = sec;
         } 
         else {
-            seconde.innerHTML = 0;
-            loaderPage(pageActive.idPage + 1);
-            clearInterval(secondeDisplay);
+            sec = 60;
+            loaderPage(1, pageActive.indexQ++);
         }
         sec--;
     }, 1000);
-    let secondeCounter = setInterval(() => {
+    let widthCounter = setInterval(() => {
         if (width > 0) {
             document.querySelector('.progress-bar').style.width = width + '%';
-            if (width < 30) {
-                document.querySelector('.progress-bar').style.background = 'red';
-            }
         } else {
-            document.querySelector('.progress-bar').style.width = 0 + '%';
-            clearInterval(secondeCounter)
+            width = 100;
         }
         width--;
     }, 600);
-}
 
 identifForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -42,7 +37,13 @@ for(let i = 0; i < inputs.length; i++) {
 
 form.addEventListener('submit', e => {
     e.preventDefault();
+    // alert(pageActive.indexQ +' / '+ question.length);
+    width = 100;
+    sec = 60;
+    pageActive.indexQ++;
+    
     for(let i = 0; i < radioInputs.length; i++) {
+        
         radioInputs[i];
         if(radioInputs[i].checked) {
             radioInputs.forEach(r => {
@@ -52,15 +53,16 @@ form.addEventListener('submit', e => {
                 // alert('reponse correcte');
                 utilisateur.points++;
                 form.reset();
+                
                 loaderPage(1, pageActive.indexQ);
             }
             else {
-                pageActive.indexQ++;
                 form.reset();
-                if(pageActive.indexQ < 15) {
-                    loaderPage(1, pageActive.indexQ + 1);
+                if(pageActive.indexQ < question.length) {
+                    loaderPage(1, pageActive.indexQ);
                 }
                 else {
+                    document.querySelector('#points').textContent = utilisateur.points;
                     loaderPage(2);
                 }
             }
@@ -91,7 +93,7 @@ let utilisateur = {
 
 let pageActive = {
     idPage: 0,
-    indexQ: -1
+    indexQ: 0
 };
 
 let temps = 60;
@@ -119,8 +121,9 @@ function validateSubmit() {
         if(conditionNom && conditionMail) {
             utilisateur.email = document.querySelector('#email').value;
             utilisateur.nom = document.querySelector('#nom').value;
+            width = 0;
+            sec = 0;
             loaderPage(pageActive.idPage + 1);
-            progression();
             break;
         }
     }
