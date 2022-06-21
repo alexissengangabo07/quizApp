@@ -5,7 +5,7 @@ let btnCommencer = document.querySelector('#submit-starter');
 let identifForm = document.querySelector('#form-identifiant');
 let inputs = document.querySelectorAll('.input');
 let width = 100;
-let sec = 60
+let sec = 60;
 
 setInterval(() => {
         if (sec > 0) {
@@ -17,7 +17,7 @@ setInterval(() => {
         }
         sec--;
     }, 1000);
-    let widthCounter = setInterval(() => {
+    setInterval(() => {
         if (width > 0) {
             document.querySelector('.progress-bar').style.width = width + '%';
         } else {
@@ -38,26 +38,29 @@ for(let i = 0; i < inputs.length; i++) {
 form.addEventListener('submit', e => {
     e.preventDefault();
     // alert(pageActive.indexQ +' / '+ question.length);
-    width = 100;
-    sec = 60;
-    pageActive.indexQ++;
+    document.querySelector('#questionCount').textContent = `${pageActive.indexQ + 1} / ${question.length}`;
     
     for(let i = 0; i < radioInputs.length; i++) {
         
-        radioInputs[i];
         if(radioInputs[i].checked) {
-            radioInputs.forEach(r => {
-                r.parentElement.parentElement.style.borderColor = 'rgba(233, 231, 231)';
+            width = 100;
+            sec = 60;
+
+            radioInputs.forEach(radio => {
+                radio.parentElement.parentElement.style.borderColor = 'rgba(233, 231, 231)';
             });
-            if(radioInputs[i].value == question[pageActive.idPage].reponseIndex) {
-                // alert('reponse correcte');
-                utilisateur.points++;
+            if(radioInputs[i].value == question[pageActive.indexQ - 1].reponseIndex) {
+                utilisateur.points += 1;
                 form.reset();
                 
                 loaderPage(1, pageActive.indexQ);
+                console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
+                pageActive.indexQ++;
             }
             else {
                 form.reset();
+                 pageActive.indexQ++;
+                console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
                 if(pageActive.indexQ < question.length) {
                     loaderPage(1, pageActive.indexQ);
                 }
@@ -65,6 +68,7 @@ form.addEventListener('submit', e => {
                     document.querySelector('#points').textContent = utilisateur.points;
                     loaderPage(2);
                 }
+               
             }
             break;
         }
@@ -123,6 +127,7 @@ function validateSubmit() {
             utilisateur.nom = document.querySelector('#nom').value;
             width = 0;
             sec = 0;
+            document.querySelector('#questionCount').textContent = `${pageActive.indexQ + 1} / ${question.length}`;
             loaderPage(pageActive.idPage + 1);
             break;
         }
@@ -155,11 +160,13 @@ function loaderPage(active = 0, index = 0) {
     pages.forEach(page => page.style.display = "none");
    pages[active].style.display = "block";
     pageActive.idPage = active;
-    questionDisplayer.textContent = question[index].titre;
- 
-    for(let i = 0; i < assertions.length; i++) {
-        assertions[i].value = question[index].assertions.indexOf(question[index].assertions[i]);
-        assertionDisplayer[i].textContent = question[index].assertions[i];
+
+    if(index < question.length) {
+        questionDisplayer.textContent = question[index].titre;
+        for(let i = 0; i < assertions.length; i++) {
+            assertions[i].value = question[index].assertions.indexOf(question[index].assertions[i]);
+            assertionDisplayer[i].textContent = question[index].assertions[i];
+        }
     }
 }
 

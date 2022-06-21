@@ -263,6 +263,10 @@ input:checked {
     background: #be6a02;
 }
 
+.align-center {
+    text-align: center;
+}
+
 .btn-center {
     display: flex;
     justify-content: center;
