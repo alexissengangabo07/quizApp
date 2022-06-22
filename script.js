@@ -69,13 +69,8 @@ form.addEventListener('submit', e => {
                 console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
                 pageActive.indexQ++;
             }
-            else {
-                document.querySelector('#points').textContent = utilisateur.points;
-                document.querySelector('#nom-display').textContent = utilisateur.nom;
-                document.querySelector('#email-display').textContent = utilisateur.email;
+            else {                
                 loaderPage(2);
-                clearInterval(secondeCounter);
-                clearInterval(widthCounter);
             }
             break;
         }
@@ -178,14 +173,24 @@ function loaderPage(active = 0, index = 0) {
             assertionDisplayer[i].textContent = question[index].assertions[i];
         }
     }
+    if(active == 2) {
+        clearInterval(secondeCounter);
+        clearInterval(widthCounter);
+        document.querySelector('#points').textContent = utilisateur.points;
+        document.querySelector('#nom-display').textContent = utilisateur.nom;
+        document.querySelector('#email-display').textContent = utilisateur.email;
+        if(utilisateur.points < question.length) {
+            document.querySelector('#icon-success').style.display = "none";
+        }
+        else {
+            document.querySelector('#icon-error').style.display = "none";
+        }
+    }
 }
 
 loaderPage();
 
 document.querySelector('.quitter').addEventListener('click', () => {
-    document.querySelector('#points').textContent = utilisateur.points;
-    document.querySelector('#nom-display').textContent = utilisateur.nom;
-    document.querySelector('#email-display').textContent = utilisateur.email;
     loaderPage(2);
 });
 
