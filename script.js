@@ -7,19 +7,21 @@ let inputs = document.querySelectorAll('.input');
 let width = 100;
 let sec = 60;
 
-setInterval(() => {
+let secondeCounter = setInterval(() => {
     if (pageActive.idPage > 0) {
         if (sec > 0) {
-        seconde.innerHTML = sec;
-    } 
-    else {
-        sec = 60;
-        loaderPage(1, pageActive.indexQ++);
-    }
-    sec--;
+            seconde.innerHTML = sec;
+        } 
+        else {
+            sec = 60;
+            loaderPage(1, pageActive.indexQ++);
+            document.querySelector('#questionCount').textContent = `${pageActive.indexQ} / ${question.length}`;
+            console.log(utilisateur.points);
+        }
+        sec--;
     }
 }, 1000);
-setInterval(() => {
+let widthCounter = setInterval(() => {
     if (pageActive.idPage > 0) {
         if (width > 0) {
             document.querySelector('.progress-bar').style.width = width + '%';
@@ -55,24 +57,25 @@ form.addEventListener('submit', e => {
             });
             
             if(pageActive.indexQ < question.length) {
-                console.log(question[pageActive.indexQ -  1].assertions[question[pageActive.indexQ - 1].reponseIndex]);
+                form.reset();
                 if(radioInputs[i].value == question[pageActive.indexQ - 1].reponseIndex) {
-                    utilisateur.points += 1;
-                    form.reset();
+                    utilisateur.points++;
                     
                     loaderPage(1, pageActive.indexQ);
-                    console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
                 }
-                else {
-                    form.reset();
-                    console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
+                else {  
                     loaderPage(1, pageActive.indexQ);
                 }
+                console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
                 pageActive.indexQ++;
             }
             else {
                 document.querySelector('#points').textContent = utilisateur.points;
+                document.querySelector('#nom-display').textContent = utilisateur.nom;
+                document.querySelector('#email-display').textContent = utilisateur.email;
                 loaderPage(2);
+                clearInterval(secondeCounter);
+                clearInterval(widthCounter);
             }
             break;
         }
@@ -89,8 +92,11 @@ radioInputs.forEach((radio) => {
             this.parentElement.parentElement.style.borderColor = 'green';
             btnSuivant[pageActive.idPage].className = 'suivant suivant-active';
         } 
+        else {
+            btnSuivant[pageActive.idPage].className = 'suivant';
+        }
     });
-})
+});
 //PROPREMENT
 let pages = document.querySelectorAll('.page');
 let utilisateur = {
@@ -175,5 +181,12 @@ function loaderPage(active = 0, index = 0) {
 }
 
 loaderPage();
+
+document.querySelector('.quitter').addEventListener('click', () => {
+    document.querySelector('#points').textContent = utilisateur.points;
+    document.querySelector('#nom-display').textContent = utilisateur.nom;
+    document.querySelector('#email-display').textContent = utilisateur.email;
+    loaderPage(2);
+});
 
 console.log("object : " +question[0].assertions[2]);
