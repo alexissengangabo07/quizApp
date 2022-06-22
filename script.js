@@ -8,23 +8,27 @@ let width = 100;
 let sec = 60;
 
 setInterval(() => {
+    if (pageActive.idPage > 0) {
         if (sec > 0) {
-            seconde.innerHTML = sec;
-        } 
-        else {
-            sec = 60;
-            loaderPage(1, pageActive.indexQ++);
-        }
-        sec--;
-    }, 1000);
-    setInterval(() => {
+        seconde.innerHTML = sec;
+    } 
+    else {
+        sec = 60;
+        loaderPage(1, pageActive.indexQ++);
+    }
+    sec--;
+    }
+}, 1000);
+setInterval(() => {
+    if (pageActive.idPage > 0) {
         if (width > 0) {
             document.querySelector('.progress-bar').style.width = width + '%';
         } else {
             width = 100;
         }
         width--;
-    }, 600);
+    }
+}, 600);
 
 identifForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -49,26 +53,26 @@ form.addEventListener('submit', e => {
             radioInputs.forEach(radio => {
                 radio.parentElement.parentElement.style.borderColor = 'rgba(233, 231, 231)';
             });
-            if(radioInputs[i].value == question[pageActive.indexQ - 1].reponseIndex) {
-                utilisateur.points += 1;
-                form.reset();
-                
-                loaderPage(1, pageActive.indexQ);
-                console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
+            
+            if(pageActive.indexQ < question.length) {
+                console.log(question[pageActive.indexQ -  1].assertions[question[pageActive.indexQ - 1].reponseIndex]);
+                if(radioInputs[i].value == question[pageActive.indexQ - 1].reponseIndex) {
+                    utilisateur.points += 1;
+                    form.reset();
+                    
+                    loaderPage(1, pageActive.indexQ);
+                    console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
+                }
+                else {
+                    form.reset();
+                    console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
+                    loaderPage(1, pageActive.indexQ);
+                }
                 pageActive.indexQ++;
             }
             else {
-                form.reset();
-                 pageActive.indexQ++;
-                console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
-                if(pageActive.indexQ < question.length) {
-                    loaderPage(1, pageActive.indexQ);
-                }
-                else {
-                    document.querySelector('#points').textContent = utilisateur.points;
-                    loaderPage(2);
-                }
-               
+                document.querySelector('#points').textContent = utilisateur.points;
+                loaderPage(2);
             }
             break;
         }
@@ -158,7 +162,7 @@ function loaderPage(active = 0, index = 0) {
     let questionDisplayer = document.querySelector('#question-displayer');
     
     pages.forEach(page => page.style.display = "none");
-   pages[active].style.display = "block";
+    pages[active].style.display = "block";
     pageActive.idPage = active;
 
     if(index < question.length) {
