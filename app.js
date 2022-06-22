@@ -47,8 +47,8 @@ let secondeCounter = setInterval(() => {
             localStorage.questionActif = Number(localStorage.questionActif) + 1;
             loaderPage(1, Number(localStorage.questionActif) + 1);
             formulaire.reset();
-            sec = 60;
             questionCountDisplay.textContent = `${Number(localStorage.questionActif) + 1} / ${questions.length}`;
+            sec = 60;
         }
         sec--;
     }
@@ -118,8 +118,8 @@ function validateSubmit() {
             errorEmail.textContent = 'N\'oubliez pas de renseigner votre email avant de commencer le Quiz.';
         }
         if(conditionNom && conditionMail) {
-            width = 0;
-            sec = 0;
+            width = 100;
+            sec = 60;
             utilisateur.email = email.value;
             utilisateur.nom = nom.value;
             localStorage.setItem('username', utilisateur.nom);
