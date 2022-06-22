@@ -1,4 +1,4 @@
-let question = [
+let questions = [
     {
         titre : "Comment inverser un tableau T1 ?",
         assertions: ["T1.transpose()", "T1.inverse()", "T1.rollout", "T1.reverse()"],
