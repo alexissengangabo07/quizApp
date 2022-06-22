@@ -340,16 +340,14 @@ input:checked {
     text-align: center;
 }
 
-.icon-green {
+.icon-success {
     color: #028A3D;
     font-size: 100px;
-    transition: all 2s ease;
-    display: block;
+    display: none;
 }
 
-.icon-red {
+.icon-error {
     color: red;
     font-size: 100px;
-    transition: all 2s ease;
-    display: block;
+    display: none;
 }
