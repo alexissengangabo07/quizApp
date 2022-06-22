@@ -1,100 +1,30 @@
-let question = require('./question');
+/* Declare some variables for DOM manuplutions */
+const btnSuivant = document.querySelectorAll('.suivant');
+const formulaire = document.querySelector('.form-question');
+const radioInputs = document.querySelectorAll(`input[type="radio"]`);
+const btnCommencer = document.querySelector('#submit-starter');
+const identifForm = document.querySelector('#form-identifiant');
+const inputs = document.querySelectorAll('.input');
+const questionCountDisplay = document.querySelector('#questionCount');
+const progressBar = document.querySelector('.progress-bar');
+const assertionDisplayer = document.querySelectorAll('.assertion-displayer');
+const assertions = document.querySelectorAll('.assertion-value');
+const questionDisplayer = document.querySelector('#question-displayer');
+const errorName =  document.querySelector('#error_name');
+const errorEmail = document.querySelector('#error_email');
+const email = document.querySelector('#email');
+const nom = document.querySelector('#nom');
+const points = document.querySelector('#points');
+const nomDisplay = document.querySelector('#nom-display');
+const emailDisplay = document.querySelector('#email-display');
+const iconError = document.querySelector('.icon-error');
+const iconSuccess = document.querySelector('.icon-success');
 
-let btnSuivant = document.querySelectorAll('.suivant');
-let form = document.querySelector('.form-question');
-let radioInputs = document.querySelectorAll(`input[type="radio"]`);
-let btnCommencer = document.querySelector('#submit-starter');
-let identifForm = document.querySelector('#form-identifiant');
-let inputs = document.querySelectorAll('.input');
+/* Declare width and height for progress bar*/
 let width = 100;
 let sec = 60;
 
-let secondeCounter = setInterval(() => {
-    if (pageActive.idPage > 0) {
-        if (sec > 0) {
-            seconde.innerHTML = sec;
-        } 
-        else {
-            sec = 60;
-            loaderPage(1, pageActive.indexQ++);
-            form.reset();
-            document.querySelector('#questionCount').textContent = `${pageActive.indexQ} / ${question.length}`;
-            console.log(utilisateur.points);
-        }
-        sec--;
-    }
-}, 1000);
-let widthCounter = setInterval(() => {
-    if (pageActive.idPage > 0) {
-        if (width > 0) {
-            document.querySelector('.progress-bar').style.width = width + '%';
-        } else {
-            width = 100;
-        }
-        width--;
-    }
-}, 600);
-
-identifForm.addEventListener('submit', e => {
-    e.preventDefault();
-    validateSubmit();
-});
-
-for(let i = 0; i < inputs.length; i++) {
-    oninputForm(i);
-}
-
-form.addEventListener('submit', e => {
-    e.preventDefault();
-    // alert(pageActive.indexQ +' / '+ question.length);
-    document.querySelector('#questionCount').textContent = `${pageActive.indexQ + 1} / ${question.length}`;
-    
-    for(let i = 0; i < radioInputs.length; i++) {
-        
-        if(radioInputs[i].checked) {
-            width = 100;
-            sec = 60;
-
-            radioInputs.forEach(radio => {
-                radio.parentElement.parentElement.style.borderColor = 'rgba(233, 231, 231)';
-            });
-            
-            if(pageActive.indexQ < question.length) {
-                form.reset();
-                if(radioInputs[i].value == question[pageActive.indexQ - 1].reponseIndex) {
-                    utilisateur.points++;    
-                }
-                loaderPage(1, pageActive.indexQ);
-                console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
-                pageActive.indexQ++;
-            }
-            else {            
-                if(radioInputs[i].value == question[pageActive.indexQ - 1].reponseIndex) {
-                    utilisateur.points++;    
-                }    
-                loaderPage(2);
-            }
-            break;
-        }
-        else {
-            radioInputs.forEach(r => r.parentElement.parentElement.style.borderColor = 'red');
-        }
-    }  
-});
-
-radioInputs.forEach((radio) => {
-    radio.addEventListener('change', function() {
-        if (radio.checked) {
-            radioInputs.forEach(r => r.parentElement.parentElement.style.borderColor = 'rgb(233, 231, 231)');
-            this.parentElement.parentElement.style.borderColor = 'green';
-            btnSuivant[pageActive.idPage].className = 'suivant suivant-active';
-        } 
-        else {
-            btnSuivant[pageActive.idPage].className = 'suivant';
-        }
-    });
-});
-//PROPREMENT
+/* Declare user object to store user infos and pageActive to manage page loading */
 let pages = document.querySelectorAll('.page');
 let utilisateur = {
     nom: "",
@@ -107,14 +37,99 @@ let pageActive = {
     indexQ: 0
 };
 
-let temps = 60;
-let points = 0;
-let widthProgress = 100;
+/* Interval counter for progress */
+let secondeCounter = setInterval(() => {
+    if (pageActive.idPage > 0) {
+        if (sec > 0) {
+            seconde.innerHTML = sec;
+        } 
+        else {
+            sec = 60;
+            loaderPage(1, pageActive.indexQ++);
+            formulaire.reset();
+            questionCountDisplay.textContent = `${pageActive.indexQ} / ${questions.length}`;
+        }
+        sec--;
+    }
+}, 1000);
+let widthCounter = setInterval(() => {
+    if (pageActive.idPage > 0) {
+        if (width > 0) {
+            progressBar.style.width = width + '%';
+        } else {
+            width = 100;
+        }
+        width--;
+    }
+}, 600);
 
-let tempsControleur;
+/* Event listener when user subimt form */
+identifForm.addEventListener('submit', e => {
+    e.preventDefault();
+    validateSubmit();
+});
 
-//FUNCTIONS
-//function pour valider le formuliare pour soummettre
+/* check all input form from logon */
+for(let i = 0; i < inputs.length; i++) {
+    onInputForm(i);
+}
+
+/* 
+    Event Listener when user submit each question ; Check if radio is checked then
+    compare checked value and the correct assertion from questions.assertions
+    then add points if correct, load next question
+*/
+formulaire.addEventListener('submit', e => {
+    e.preventDefault();
+    
+    for(let i = 0; i < radioInputs.length; i++) {
+        
+        if(radioInputs[i].checked) {
+            radioInputs.forEach(radio => {
+                radio.parentElement.parentElement.style.borderColor = 'rgba(233, 231, 231)';
+            });
+            
+            if(pageActive.indexQ < questions.length) {
+                formulaire.reset();
+                btnSuivant[pageActive.idPage].className = 'suivant';
+                if(radioInputs[i].value == questions[pageActive.indexQ - 1].reponseIndex) {
+                    utilisateur.points++;    
+                }
+                loaderPage(1, pageActive.indexQ);
+                pageActive.indexQ++;
+            }
+            else {            
+                if(radioInputs[i].value == questions[pageActive.indexQ - 1].reponseIndex) {
+                    utilisateur.points++;    
+                }    
+                loaderPage(2);
+            }
+            width = 100;
+            sec = 60;
+            break;
+        }
+        else {
+            radioInputs.forEach(r => r.parentElement.parentElement.style.borderColor = 'red');
+        }
+    }  
+});
+
+
+/* Add green color on selected radio input */
+radioInputs.forEach((radio) => {
+    radio.addEventListener('change', function() {
+        if (radio.checked) {
+            radioInputs.forEach(radio => radio.parentElement.parentElement.style.borderColor = 'rgb(233, 231, 231)');
+            this.parentElement.parentElement.style.borderColor = 'green';
+            btnSuivant[pageActive.idPage].className = 'suivant suivant-active';
+        } 
+        else {
+            btnSuivant[pageActive.idPage].className = 'suivant';
+        }
+    });
+});
+
+/* function for form checks and submitting*/
 function validateSubmit() {
     for(let i = 0; i < inputs.length; i++) {
         
@@ -123,34 +138,34 @@ function validateSubmit() {
         
         if(!conditionNom) {
             inputs[0].style.borderColor = 'red';
-            document.querySelector('#error_name').textContent = 'N\'oubliez pas de renseigner votre nom avant de commencer le Quiz.';
+            errorName.textContent = 'N\'oubliez pas de renseigner votre nom avant de commencer le Quiz.';
         }
         if(!conditionMail) {
             inputs[1].style.borderColor = 'red';
-            document.querySelector('#error_email').textContent = 'N\'oubliez pas de renseigner votre email avant de commencer le Quiz.';
+            errorEmail.textContent = 'N\'oubliez pas de renseigner votre email avant de commencer le Quiz.';
         }
         if(conditionNom && conditionMail) {
-            utilisateur.email = document.querySelector('#email').value;
-            utilisateur.nom = document.querySelector('#nom').value;
+            utilisateur.email = email.value;
+            utilisateur.nom = nom.value;
             width = 0;
             sec = 0;
-            document.querySelector('#questionCount').textContent = `${pageActive.indexQ + 1} / ${question.length}`;
+            questionCountDisplay.textContent = `${pageActive.indexQ + 1} / ${questions.length}`;
             loaderPage(pageActive.idPage + 1);
             break;
         }
     }
 }
 
-//Fonction de validation on input
-function oninputForm(i) {
+/* Function reset error and color warnings on logon form */
+function onInputForm(i) {
     inputs[i].addEventListener('input', () => {
         if(inputs[i].value.trim() != '') {
             inputs[i].style.borderColor = 'rgba(233, 231, 231)';
             if(inputs[0].value.trim() != '') {
-                document.querySelector('#error_name').textContent = '';
+                errorName.textContent = '';
             }
             if(inputs[1].value.trim() != '') {
-                document.querySelector('#error_email').textContent = '';
+                errorEmail.textContent = '';
             }
         }
         if(inputs[0].value.trim() != '' && inputs[1].value.trim() != '') {
@@ -158,44 +173,40 @@ function oninputForm(i) {
         }
     });
 }
-//Function Loader Pages
+
+/*Function Loader Pages and change card contents */
 function loaderPage(active = 0, index = 0) {
-    let assertionDisplayer = document.querySelectorAll('.assertion-displayer');
-    let assertions = document.querySelectorAll('.assertion-value');
-    let questionDisplayer = document.querySelector('#question-displayer');
     
     pages.forEach(page => page.style.display = "none");
     pages[active].style.display = "block";
     pageActive.idPage = active;
+    questionCountDisplay.textContent = `${pageActive.indexQ + 1} / ${questions.length}`;
 
-    if(index < question.length) {
-        questionDisplayer.textContent = question[index].titre;
+    if(index < questions.length) {
+        questionDisplayer.textContent = questions[index].titre;
         for(let i = 0; i < assertions.length; i++) {
-            assertions[i].value = question[index].assertions.indexOf(question[index].assertions[i]);
-            assertionDisplayer[i].textContent = question[index].assertions[i];
+            assertions[i].value = questions[index].assertions.indexOf(questions[index].assertions[i]);
+            assertionDisplayer[i].textContent = questions[index].assertions[i];
         }
     }
     if(active == 2) {
         clearInterval(secondeCounter);
         clearInterval(widthCounter);
-        document.querySelector('#points').textContent = utilisateur.points;
-        document.querySelector('#nom-display').textContent = utilisateur.nom;
-        document.querySelector('#email-display').textContent = utilisateur.email;
-        if(utilisateur.points < question.length / 2) {
-            document.querySelector('.icon-error').style.display = "block";
+        points.textContent = utilisateur.points;
+        nomDisplay.textContent = utilisateur.nom;
+        emailDisplay.textContent = utilisateur.email;
+        if(utilisateur.points < questions.length / 2) {
+            iconError.style.display = "block";
         }
         else {
-            document.querySelector('.icon-success').style.display = "block";
+            iconSuccess.style.display = "block";
         }
     }
 }
 
 loaderPage();
 
+/* When user press on quit button */
 document.querySelector('.quitter').addEventListener('click', () => {
     loaderPage(2);
 });
-
-console.log("object : " +question[0].assertions[2]);
-
-module.exports = question;

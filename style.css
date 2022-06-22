@@ -275,6 +275,7 @@ input:checked {
 }
 
 .suivant {
+    background-color: rgba(2, 138, 61, 0.42);
     color: white;
     font-weight: bold;
     padding: 10px;
@@ -283,6 +284,7 @@ input:checked {
     transition: all 1s ease;
     width: 170px;
     text-align: center;
+    transition: all 1s ease;
 }
 
 .suivant-disable {
