@@ -344,4 +344,12 @@ input:checked {
     color: #028A3D;
     font-size: 100px;
     transition: all 2s ease;
+    display: block;
+}
+
+.icon-red {
+    color: red;
+    font-size: 100px;
+    transition: all 2s ease;
+    display: block;
 }
