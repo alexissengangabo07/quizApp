@@ -15,6 +15,7 @@ let secondeCounter = setInterval(() => {
         else {
             sec = 60;
             loaderPage(1, pageActive.indexQ++);
+            form.reset();
             document.querySelector('#questionCount').textContent = `${pageActive.indexQ} / ${question.length}`;
             console.log(utilisateur.points);
         }
@@ -59,17 +60,16 @@ form.addEventListener('submit', e => {
             if(pageActive.indexQ < question.length) {
                 form.reset();
                 if(radioInputs[i].value == question[pageActive.indexQ - 1].reponseIndex) {
-                    utilisateur.points++;
-                    
-                    loaderPage(1, pageActive.indexQ);
+                    utilisateur.points++;    
                 }
-                else {  
-                    loaderPage(1, pageActive.indexQ);
-                }
+                loaderPage(1, pageActive.indexQ);
                 console.log(`Utilisateur: ${utilisateur.nom} ${utilisateur.email} . Points: ${utilisateur.points}`);
                 pageActive.indexQ++;
             }
-            else {                
+            else {            
+                if(radioInputs[i].value == question[pageActive.indexQ - 1].reponseIndex) {
+                    utilisateur.points++;    
+                }    
                 loaderPage(2);
             }
             break;
@@ -179,11 +179,11 @@ function loaderPage(active = 0, index = 0) {
         document.querySelector('#points').textContent = utilisateur.points;
         document.querySelector('#nom-display').textContent = utilisateur.nom;
         document.querySelector('#email-display').textContent = utilisateur.email;
-        if(utilisateur.points < question.length) {
-            document.querySelector('#icon-success').style.display = "none";
+        if(utilisateur.points < question.length / 2) {
+            document.querySelector('.icon-error').style.display = "block";
         }
         else {
-            document.querySelector('#icon-error').style.display = "none";
+            document.querySelector('.icon-success').style.display = "block";
         }
     }
 }
