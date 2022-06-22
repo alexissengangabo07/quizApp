@@ -44,9 +44,10 @@ let secondeCounter = setInterval(() => {
             seconde.innerHTML = sec;
         } 
         else {
-            sec = 60;
-            loaderPage(1, Number(localStorage.questionActif));
+            localStorage.questionActif = Number(localStorage.questionActif) + 1;
+            loaderPage(1, Number(localStorage.questionActif) + 1);
             formulaire.reset();
+            sec = 60;
             questionCountDisplay.textContent = `${Number(localStorage.questionActif) + 1} / ${questions.length}`;
         }
         sec--;
@@ -97,7 +98,7 @@ function loaderPage(active = 0, index = 0) {
 }
 
 if(localStorage.pageActif != null) 
-    loaderPage(localStorage.pageActif, localStorage.questionActif); 
+    loaderPage(Number(localStorage.pageActif), Number(localStorage.questionActif)); 
 else 
     loaderPage();
 
@@ -177,8 +178,7 @@ formulaire.addEventListener('submit', e => {
             radioInputs.forEach(radio => {
                 radio.parentElement.parentElement.style.borderColor = 'rgba(233, 231, 231)';
             });
-            
-            if(localStorage.questionActif - 1 < questions.length) {
+            if(Number(localStorage.questionActif) < questions.length -1) {
                 formulaire.reset();
                 btnSuivant[localStorage.pageActif].className = 'suivant';
                 if(radioInputs[i].value == questions[localStorage.questionActif].reponseIndex) {
@@ -191,7 +191,7 @@ formulaire.addEventListener('submit', e => {
                 loaderPage(1, Number(localStorage.questionActif));
             }
             else {            
-                if(radioInputs[i].value == questions[localStorage.questionActif - 1].reponseIndex) {
+                if(radioInputs[i].value == questions[localStorage.questionActif].reponseIndex) {
                     utilisateur.points++;
                     localStorage.setItem('userpoint', utilisateur.points);
                 }  
@@ -229,5 +229,7 @@ document.querySelector('.quitter').addEventListener('click', () => {
 
 document.querySelector('#retour-acceuil').addEventListener('click', () => {
     localStorage.clear();
+    formulaire.reset();
+    identifForm.reset();
     loaderPage(0);
 });
