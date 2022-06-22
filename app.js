@@ -27,14 +27,14 @@ let sec = 60;
 /* Declare user object to store user infos and pageActive to manage page loading */
 let pages = document.querySelectorAll('.page');
 let utilisateur = {
-    nom: "",
-    email: "",
-    points: 0
+    nom: (localStorage.username) ? localStorage.username : "",
+    email: (localStorage.useremail) ? localStorage.useremail : "",
+    points: (localStorage.userpoint) ? localStorage.userpoint : 0
 };
 
 let pageActive = {
-    idPage: 0,
-    indexQ: 0
+    idPage: (localStorage.pageActif) ? localStorage.pageActif : 0,
+    indexQ: (localStorage.questionActif) ?localStorage.questionActif : 0
 };
 
 /* Interval counter for progress */
@@ -45,9 +45,9 @@ let secondeCounter = setInterval(() => {
         } 
         else {
             sec = 60;
-            loaderPage(1, pageActive.indexQ++);
+            loaderPage(1, Number(localStorage.questionActif));
             formulaire.reset();
-            questionCountDisplay.textContent = `${pageActive.indexQ} / ${questions.length}`;
+            questionCountDisplay.textContent = `${Number(localStorage.questionActif) + 1} / ${questions.length}`;
         }
         sec--;
     }
@@ -63,6 +63,95 @@ let widthCounter = setInterval(() => {
     }
 }, 600);
 
+/*
+    Function Loader Each Page,
+    change questions  content and assertions from questions objects
+*/
+function loaderPage(active = 0, index = 0) {
+    
+    pages.forEach(page => page.style.display = "none");
+    pages[active].style.display = "block";
+    pageActive.idPage = active;
+    questionCountDisplay.textContent = `${Number(localStorage.questionActif) + 1} / ${questions.length}`;
+
+    if(index < questions.length) {
+        questionDisplayer.textContent = questions[index].titre;
+        for(let i = 0; i < assertions.length; i++) {
+            assertions[i].value = questions[index].assertions.indexOf(questions[index].assertions[i]);
+            assertionDisplayer[i].textContent = questions[index].assertions[i];
+        }
+    }
+    if(active == 2) {
+        clearInterval(secondeCounter);
+        clearInterval(widthCounter);
+        points.textContent = `${localStorage.userpoint} / ${questions.length}`;
+        nomDisplay.textContent = localStorage.username;
+        emailDisplay.textContent = localStorage.useremail;
+        if(localStorage.userpoint < questions.length / 2) {
+            iconError.style.display = "block";
+        }
+        else {
+            iconSuccess.style.display = "block";
+        }
+    }
+}
+
+if(localStorage.pageActif != null) 
+    loaderPage(localStorage.pageActif, localStorage.questionActif); 
+else 
+    loaderPage();
+
+/* function for form checks and submitting*/
+function validateSubmit() {
+    for(let i = 0; i < inputs.length; i++) {
+        
+        let conditionNom = inputs[0].value.trim() != '' && inputs[0].value.trim().length > 2;
+        let conditionMail = inputs[1].value.trim() != '' && (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs[1].value.trim()));
+        
+        if(!conditionNom) {
+            inputs[0].style.borderColor = 'red';
+            errorName.textContent = 'N\'oubliez pas de renseigner votre nom avant de commencer le Quiz.';
+        }
+        if(!conditionMail) {
+            inputs[1].style.borderColor = 'red';
+            errorEmail.textContent = 'N\'oubliez pas de renseigner votre email avant de commencer le Quiz.';
+        }
+        if(conditionNom && conditionMail) {
+            width = 0;
+            sec = 0;
+            utilisateur.email = email.value;
+            utilisateur.nom = nom.value;
+            localStorage.setItem('username', utilisateur.nom);
+            localStorage.setItem('useremail', utilisateur.email);
+            localStorage.setItem('pageActif', pageActive.idPage + 1);
+            localStorage.setItem('questionActif', pageActive.indexQ);
+            localStorage.setItem('userpoint', utilisateur.points);
+            loaderPage(Number(localStorage.pageActif), Number(localStorage.questionActif));
+            break;
+        }
+    }
+}
+
+/* Function reset error and color warnings, oninput evt on logon form */
+function onInputForm(i) {
+    inputs[i].addEventListener('input', () => {
+        if(inputs[i].value.trim() != '') {
+            inputs[i].style.borderColor = 'rgba(233, 231, 231)';
+            if(inputs[0].value.trim() != '') {
+                errorName.textContent = '';
+            }
+            if(inputs[1].value.trim() != '') {
+                errorEmail.textContent = '';
+            }
+        }
+        if(inputs[0].value.trim() != '' && inputs[1].value.trim() != '') {
+            btnCommencer.className = 'suivant suivant-active';
+        }
+    });
+}
+
+
+/* EVENTS */
 /* Event listener when user subimt form */
 identifForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -89,19 +178,23 @@ formulaire.addEventListener('submit', e => {
                 radio.parentElement.parentElement.style.borderColor = 'rgba(233, 231, 231)';
             });
             
-            if(pageActive.indexQ < questions.length) {
+            if(localStorage.questionActif - 1 < questions.length) {
                 formulaire.reset();
-                btnSuivant[pageActive.idPage].className = 'suivant';
-                if(radioInputs[i].value == questions[pageActive.indexQ - 1].reponseIndex) {
-                    utilisateur.points++;    
-                }
-                loaderPage(1, pageActive.indexQ);
+                btnSuivant[localStorage.pageActif].className = 'suivant';
+                if(radioInputs[i].value == questions[localStorage.questionActif].reponseIndex) {
+                    utilisateur.points++;
+                    localStorage.setItem('userpoint', utilisateur.points);
+                }  
+                localStorage.setItem('questionActif', Number(pageActive.indexQ) + 1);
                 pageActive.indexQ++;
+                localStorage.setItem('pageActif', 1);
+                loaderPage(1, Number(localStorage.questionActif));
             }
             else {            
-                if(radioInputs[i].value == questions[pageActive.indexQ - 1].reponseIndex) {
-                    utilisateur.points++;    
-                }    
+                if(radioInputs[i].value == questions[localStorage.questionActif - 1].reponseIndex) {
+                    utilisateur.points++;
+                    localStorage.setItem('userpoint', utilisateur.points);
+                }  
                 loaderPage(2);
             }
             width = 100;
@@ -113,7 +206,6 @@ formulaire.addEventListener('submit', e => {
         }
     }  
 });
-
 
 /* Add green color on selected radio input */
 radioInputs.forEach((radio) => {
@@ -129,84 +221,13 @@ radioInputs.forEach((radio) => {
     });
 });
 
-/* function for form checks and submitting*/
-function validateSubmit() {
-    for(let i = 0; i < inputs.length; i++) {
-        
-        let conditionNom = inputs[0].value.trim() != '' && inputs[0].value.trim().length > 2;
-        let conditionMail = inputs[1].value.trim() != '' && (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs[1].value.trim()));
-        
-        if(!conditionNom) {
-            inputs[0].style.borderColor = 'red';
-            errorName.textContent = 'N\'oubliez pas de renseigner votre nom avant de commencer le Quiz.';
-        }
-        if(!conditionMail) {
-            inputs[1].style.borderColor = 'red';
-            errorEmail.textContent = 'N\'oubliez pas de renseigner votre email avant de commencer le Quiz.';
-        }
-        if(conditionNom && conditionMail) {
-            utilisateur.email = email.value;
-            utilisateur.nom = nom.value;
-            width = 0;
-            sec = 0;
-            questionCountDisplay.textContent = `${pageActive.indexQ + 1} / ${questions.length}`;
-            loaderPage(pageActive.idPage + 1);
-            break;
-        }
-    }
-}
-
-/* Function reset error and color warnings on logon form */
-function onInputForm(i) {
-    inputs[i].addEventListener('input', () => {
-        if(inputs[i].value.trim() != '') {
-            inputs[i].style.borderColor = 'rgba(233, 231, 231)';
-            if(inputs[0].value.trim() != '') {
-                errorName.textContent = '';
-            }
-            if(inputs[1].value.trim() != '') {
-                errorEmail.textContent = '';
-            }
-        }
-        if(inputs[0].value.trim() != '' && inputs[1].value.trim() != '') {
-            btnCommencer.className = 'suivant suivant-active';
-        }
-    });
-}
-
-/*Function Loader Pages and change card contents */
-function loaderPage(active = 0, index = 0) {
-    
-    pages.forEach(page => page.style.display = "none");
-    pages[active].style.display = "block";
-    pageActive.idPage = active;
-    questionCountDisplay.textContent = `${pageActive.indexQ + 1} / ${questions.length}`;
-
-    if(index < questions.length) {
-        questionDisplayer.textContent = questions[index].titre;
-        for(let i = 0; i < assertions.length; i++) {
-            assertions[i].value = questions[index].assertions.indexOf(questions[index].assertions[i]);
-            assertionDisplayer[i].textContent = questions[index].assertions[i];
-        }
-    }
-    if(active == 2) {
-        clearInterval(secondeCounter);
-        clearInterval(widthCounter);
-        points.textContent = utilisateur.points;
-        nomDisplay.textContent = utilisateur.nom;
-        emailDisplay.textContent = utilisateur.email;
-        if(utilisateur.points < questions.length / 2) {
-            iconError.style.display = "block";
-        }
-        else {
-            iconSuccess.style.display = "block";
-        }
-    }
-}
-
-loaderPage();
-
 /* When user press on quit button */
 document.querySelector('.quitter').addEventListener('click', () => {
+    localStorage.setItem('pageActif', 2);
     loaderPage(2);
+});
+
+document.querySelector('#retour-acceuil').addEventListener('click', () => {
+    localStorage.clear();
+    loaderPage(0);
 });
