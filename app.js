@@ -1,3 +1,5 @@
+let question = require('./question');
+
 let btnSuivant = document.querySelectorAll('.suivant');
 let form = document.querySelector('.form-question');
 let radioInputs = document.querySelectorAll(`input[type="radio"]`);
@@ -195,3 +197,5 @@ document.querySelector('.quitter').addEventListener('click', () => {
 });
 
 console.log("object : " +question[0].assertions[2]);
+
+module.exports = question;
