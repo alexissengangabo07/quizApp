@@ -19,7 +19,8 @@ const nomDisplay = document.querySelector('#nom-display');
 const emailDisplay = document.querySelector('#email-display');
 const iconError = document.querySelector('.icon-error');
 const iconSuccess = document.querySelector('.icon-success');
-
+const notification =  document.querySelector('.notification');
+const notifContent = document.querySelector('#notification-content');
 /* Declare width and height for progress bar*/
 let width = 100;
 let sec = 60;
@@ -27,14 +28,14 @@ let sec = 60;
 /* Declare user object to store user infos and pageActive to manage page loading */
 let pages = document.querySelectorAll('.page');
 let utilisateur = {
-    nom: (localStorage.username) ? localStorage.username : "",
-    email: (localStorage.useremail) ? localStorage.useremail : "",
-    points: (localStorage.userpoint) ? localStorage.userpoint : 0
+    nom: "",
+    email: "",
+    points: 0
 };
 
 let pageActive = {
-    idPage: (localStorage.pageActif) ? localStorage.pageActif : 0,
-    indexQ: (localStorage.questionActif) ?localStorage.questionActif : 0
+    idPage: 0,
+    indexQ: 0
 };
 
 /* Interval counter for progress */
@@ -44,10 +45,9 @@ let secondeCounter = setInterval(() => {
             seconde.innerHTML = sec;
         } 
         else {
-            localStorage.questionActif = Number(localStorage.questionActif) + 1;
-            loaderPage(1, Number(localStorage.questionActif) + 1);
+            loaderPage(1, pageActive.indexQ++);
             formulaire.reset();
-            questionCountDisplay.textContent = `${Number(localStorage.questionActif) + 1} / ${questions.length}`;
+            questionCountDisplay.textContent = `${pageActive.indexQ} / ${questions.length}`;
             sec = 60;
         }
         sec--;
@@ -73,7 +73,7 @@ function loaderPage(active = 0, index = 0) {
     pages.forEach(page => page.style.display = "none");
     pages[active].style.display = "block";
     pageActive.idPage = active;
-    questionCountDisplay.textContent = `${Number(localStorage.questionActif) + 1} / ${questions.length}`;
+    questionCountDisplay.textContent = `${pageActive.indexQ + 1} / ${questions.length}`;
 
     if(index < questions.length) {
         questionDisplayer.textContent = questions[index].titre;
@@ -85,10 +85,10 @@ function loaderPage(active = 0, index = 0) {
     if(active == 2) {
         clearInterval(secondeCounter);
         clearInterval(widthCounter);
-        points.textContent = `${localStorage.userpoint} / ${questions.length}`;
-        nomDisplay.textContent = localStorage.username;
-        emailDisplay.textContent = localStorage.useremail;
-        if(localStorage.userpoint < questions.length / 2) {
+        points.textContent = `${utilisateur.points} / ${questions.length}`;
+        nomDisplay.textContent = utilisateur.nom;
+        emailDisplay.textContent = utilisateur.email;
+        if(utilisateur.points < questions.length / 2) {
             iconError.style.display = "block";
         }
         else {
@@ -96,11 +96,6 @@ function loaderPage(active = 0, index = 0) {
         }
     }
 }
-
-if(localStorage.pageActif != null) 
-    loaderPage(Number(localStorage.pageActif), Number(localStorage.questionActif)); 
-else 
-    loaderPage();
 
 /* function for form checks and submitting*/
 function validateSubmit() {
@@ -118,22 +113,18 @@ function validateSubmit() {
             errorEmail.textContent = 'N\'oubliez pas de renseigner votre email avant de commencer le Quiz.';
         }
         if(conditionNom && conditionMail) {
-            width = 100;
-            sec = 60;
             utilisateur.email = email.value;
             utilisateur.nom = nom.value;
-            localStorage.setItem('username', utilisateur.nom);
-            localStorage.setItem('useremail', utilisateur.email);
-            localStorage.setItem('pageActif', pageActive.idPage + 1);
-            localStorage.setItem('questionActif', pageActive.indexQ);
-            localStorage.setItem('userpoint', utilisateur.points);
-            loaderPage(Number(localStorage.pageActif), Number(localStorage.questionActif));
+            width = 0;
+            sec = 0;
+            questionCountDisplay.textContent = `${pageActive.indexQ + 1} / ${questions.length}`;
+            loaderPage(pageActive.idPage + 1);
             break;
         }
     }
 }
 
-/* Function reset error and color warnings, oninput evt on logon form */
+/* Function reset error and color warnings on logon form */
 function onInputForm(i) {
     inputs[i].addEventListener('input', () => {
         if(inputs[i].value.trim() != '') {
@@ -151,8 +142,8 @@ function onInputForm(i) {
     });
 }
 
+loaderPage();
 
-/* EVENTS */
 /* Event listener when user subimt form */
 identifForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -178,23 +169,34 @@ formulaire.addEventListener('submit', e => {
             radioInputs.forEach(radio => {
                 radio.parentElement.parentElement.style.borderColor = 'rgba(233, 231, 231)';
             });
-            if(Number(localStorage.questionActif) < questions.length -1) {
+            
+            if(pageActive.indexQ < questions.length) {
                 formulaire.reset();
-                btnSuivant[localStorage.pageActif].className = 'suivant';
-                if(radioInputs[i].value == questions[localStorage.questionActif].reponseIndex) {
-                    utilisateur.points++;
-                    localStorage.setItem('userpoint', utilisateur.points);
-                }  
-                localStorage.setItem('questionActif', Number(pageActive.indexQ) + 1);
+                btnSuivant[pageActive.idPage].className = 'suivant';
+                if(radioInputs[i].value == questions[pageActive.indexQ - 1].reponseIndex) {
+                    utilisateur.points++;    
+                    notification.style.display = 'block';
+                    notification.className = ' notification notification-reussite';
+                    notifContent.textContent = 'Félicitations! bonne reponse. +1';
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                    }, 1500);
+                }
+                else {
+                    notification.style.display = 'block';
+                    notification.className += 'notification notification-erreur';
+                    notifContent.textContent = 'Désolé! mauvaise reponse.';
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                    }, 1500);
+                }
+                loaderPage(1, pageActive.indexQ);
                 pageActive.indexQ++;
-                localStorage.setItem('pageActif', 1);
-                loaderPage(1, Number(localStorage.questionActif));
             }
             else {            
-                if(radioInputs[i].value == questions[localStorage.questionActif].reponseIndex) {
-                    utilisateur.points++;
-                    localStorage.setItem('userpoint', utilisateur.points);
-                }  
+                if(radioInputs[i].value == questions[pageActive.indexQ - 1].reponseIndex) {
+                    utilisateur.points++;    
+                }    
                 loaderPage(2);
             }
             width = 100;
@@ -206,6 +208,7 @@ formulaire.addEventListener('submit', e => {
         }
     }  
 });
+
 
 /* Add green color on selected radio input */
 radioInputs.forEach((radio) => {
@@ -223,12 +226,11 @@ radioInputs.forEach((radio) => {
 
 /* When user press on quit button */
 document.querySelector('.quitter').addEventListener('click', () => {
-    localStorage.setItem('pageActif', 2);
     loaderPage(2);
+    
 });
 
 document.querySelector('#retour-acceuil').addEventListener('click', () => {
-    localStorage.clear();
     formulaire.reset();
     identifForm.reset();
     loaderPage(0);

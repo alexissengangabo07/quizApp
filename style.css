@@ -14,7 +14,7 @@ body {
 .container {
     display: flex;
     justify-content: center;
-    padding-top: 60px;
+    padding-top: 65px;
 }
 
 .card {
@@ -352,4 +352,44 @@ input:checked {
     color: red;
     font-size: 100px;
     display: none;
+}
+
+.notification {
+    position: fixed;
+    top: 12px;
+    color: white;
+    font-weight: bold;
+    padding: 0 10px;
+    border-radius: 2px;
+    border-right: 4px solid rgb(253, 253, 149);
+    display: none;
+}
+
+.notification-erreur {
+    background-color: rgb(238, 71, 71);
+    transition: all 0.5s ease;
+}
+
+.notification-reussite {
+    background-color: #028A3D;
+}
+
+.notification-reussite::before {
+    content: "";
+    border-left: 10px solid transparent;
+    border-bottom: 20px solid #028A3D;
+    border-right: 10px solid transparent;
+    position: fixed;
+    top: 0px;
+    left: 50%;
+}
+
+.notification-erreur::before {
+    content: "";
+    border-left: 10px solid transparent;
+    border-bottom: 20px solid rgb(238, 71, 71);
+    border-right: 10px solid transparent;
+    position: fixed;
+    top: 0px;
+    left: 50%;
 }
