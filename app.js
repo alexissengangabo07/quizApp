@@ -45,6 +45,14 @@ let secondeCounter = setInterval(() => {
             seconde.innerHTML = sec;
         } 
         else {
+            if (pageActive.indexQ > 0) {
+                notification.style.display = 'block';
+                notification.className += 'notification notification-erreur';
+                notifContent.textContent = 'Désolé! temps écoulé.';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 1500); 
+            }
             loaderPage(1, pageActive.indexQ++);
             formulaire.reset();
             questionCountDisplay.textContent = `${pageActive.indexQ} / ${questions.length}`;
@@ -68,6 +76,7 @@ let widthCounter = setInterval(() => {
     Function Loader Each Page,
     change questions  content and assertions from questions objects
 */
+loaderPage();
 function loaderPage(active = 0, index = 0) {
     
     pages.forEach(page => page.style.display = "none");
@@ -141,8 +150,6 @@ function onInputForm(i) {
         }
     });
 }
-
-loaderPage();
 
 /* Event listener when user subimt form */
 identifForm.addEventListener('submit', e => {
