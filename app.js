@@ -197,6 +197,10 @@ formulaire.addEventListener('submit', e => {
                         notification.style.display = 'none';
                     }, 1500);
                 }
+                
+                if(pageActive.indexQ == questions.length - 1) {
+                    document.querySelector('#suivant').value = 'Terminer';
+                }
                 loaderPage(1, pageActive.indexQ);
                 pageActive.indexQ++;
             }
@@ -238,7 +242,5 @@ document.querySelector('.quitter').addEventListener('click', () => {
 });
 
 document.querySelector('#retour-acceuil').addEventListener('click', () => {
-    formulaire.reset();
-    identifForm.reset();
-    loaderPage(0);
+    window.location.reload();
 });
