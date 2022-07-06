@@ -75,3 +75,5 @@ let questions = [
         reponseIndex: 1
     }
 ];
+
+export default questions;
