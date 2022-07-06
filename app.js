@@ -1,3 +1,5 @@
+import questions from "./js/questions.js";
+
 /* Declare some variables for DOM manuplutions */
 const btnSuivant = document.querySelectorAll('.suivant');
 const formulaire = document.querySelector('.form-question');
@@ -110,8 +112,8 @@ function loaderPage(active = 0, index = 0) {
 function validateSubmit() {
     for(let i = 0; i < inputs.length; i++) {
         
-        let conditionNom = inputs[0].value.trim() != '' && inputs[0].value.trim().length > 2;
-        let conditionMail = inputs[1].value.trim() != '' && (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(inputs[1].value.trim()));
+        let conditionNom = inputs[0].value.trim() != '' && inputs[0].value.trim().length > 2 && (/^([a-zA-Zéàèçïô]{3,20})$/).test(inputs[0].value.trim());
+        let conditionMail = inputs[1].value.trim() != '' && (/^\w+([[\.-]?\w+]{3,15})*@\w+([[\.-]?\w+]{2,10})*(\.\w{2,3})+$/.test(inputs[1].value.trim()));
         
         if(!conditionNom) {
             inputs[0].style.borderColor = 'red';
