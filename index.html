@@ -6,9 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="shortcut icon" href="./images/ubuntu.png" type="image/x-icon"> -->
-    <link rel="stylesheet" href="./MaterialDesign/css/materialdesignicons.min.css">
     <title>QuizApp</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
@@ -20,7 +19,8 @@
             </div>
             <div class="card-description ">
                 <p>
-                    Évaluez vos connaissances en JavaScript en répondant aux questions que nous avons spécialement sélectionnées pour vous. C'est fun et c'est gratuit.
+                    Évaluez vos connaissances en JavaScript en répondant aux questions que nous avons spécialement
+                    sélectionnées pour vous. C'est fun et c'est gratuit.
                 </p>
             </div>
             <div class="card-body ">
@@ -75,7 +75,7 @@
                     </div>
                     <div class="radio-group ">
                         <label>
-                            <input type="radio" name="reponse" class="assertion-value" value="j"> 
+                            <input type="radio" name="reponse" class="assertion-value" value="j">
                             <span class="assertion-displayer"></span>
                         </label>
                     </div>
@@ -96,21 +96,22 @@
                 <p style="font-weight: bold;" id="nom-display"></p>
             </div>
             <div class="card-body ">
-                    <div>
-                        <p id="email-display"></p>
-                        <div class="icon">
-                            <i class="icon-error mdi mdi-close-circle-outline"></i>
-                            <i class="icon-success mdi mdi-check-circle-outline"></i>
-                        </div>
-                        <div>
-                            <p style="font-weight: bold; "><span id="points"></span></p>
-                        </div>
+                <div>
+                    <p id="email-display"></p>
+                    <div class="icon">
+                        <img src="./assets/svg/bx-x.svg" class="icon-error" alt="img-echec">
+                        <img src="./assets/svg/bx-check.svg" class="icon-success" alt="img-sucess">
                     </div>
-                    <div class="btn-center ">
-                        <div>
-                            <input type="button" id="retour-acceuil" class="btn-submit acceuil-btn " value="Acceuil ">
-                        </div>
-                    </div>
+                </div>
+                <div>
+                    <p style="font-weight: bold; "><span id="points"></span></p>
+                </div>
+            </div>
+            <div class="btn-center ">
+                <div>
+                    <input type="button" id="retour-acceuil" class="btn-submit acceuil-btn " value="Acceuil ">
+                </div>
+            </div>
             </div>
         </article>
         <div class="notification notification-reussite">
