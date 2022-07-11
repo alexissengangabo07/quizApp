@@ -1,4 +1,4 @@
-import questions from "./js/questions.js";
+import questions from "./assets/js/questions.js";
 
 /* Declare some variables for DOM manuplutions */
 const btnSuivant = document.querySelectorAll('.suivant');

@@ -339,18 +339,21 @@ input:checked {
 }
 
 .icon {
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .icon-success {
-    color: #028A3D;
-    font-size: 100px;
+    width: 100px; 
+    border: 5px solid rgb(8, 187, 8); 
+    border-radius: 50%;
     display: none;
 }
 
 .icon-error {
-    color: red;
-    font-size: 100px;
+    width: 100px;
+    border: 5px solid red;
+    border-radius: 50%;
     display: none;
 }
 
